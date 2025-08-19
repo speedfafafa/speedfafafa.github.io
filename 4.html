@@ -532,10 +532,7 @@
         <div class="container">
             <!-- 导航与进度条已按需求移除 -->
             <div class="stat-box reveal">
-                <p class="large-text">2025年，多项文物回归事件点燃公众关注：<strong class="highlight-large"><span class="count-number"
-                            data-target="542">0</span></strong>片甲骨文实现数字化回归；国家新近接收海外返还帛书珍贵卷册；我们发起的问卷共收集<strong
-                        class="highlight-large"><span class="count-number"
-                            data-target="500">0</span></strong>份有效样本，呈现社会对文物回家的<strong class="highlight">热切期待</strong>。
+                <p class="large-text">2025年，多项文物回归事件点燃公众关注：<strong class="highlight-large">542</strong>片甲骨文实现数字化回归；国家新近接收海外返还帛书珍贵卷册；我们发起的问卷共收集<strong class="highlight-large">500</strong>份有效样本，呈现社会对文物回家的<strong class="highlight">热切期待</strong>。
                 </p>
                 <p>数据来源：调查问卷、公开资讯整理（2025）</p>
             </div>
@@ -612,7 +609,7 @@
         function easeOutQuad(t) { return t * (2 - t); } // easing
         function animateCount(el) {
             const target = parseInt(el.dataset.target, 10) || 0;
-            const duration = 5000; // 进一步放慢到5秒
+            const duration = 800; // 再加速到0.8秒
             const startTime = performance.now();
             function frame(now) {
                 const progress = Math.min((now - startTime) / duration, 1);
@@ -636,13 +633,13 @@
                 const target = parseInt(text, 10);
                 if (target > 0) {
                     let current = 0;
-                    const increment = Math.ceil(target / 600); // 降低速度
+                    const increment = Math.ceil(target / 200); // 提高步进速度
                     const updateCount = () => {
                         current += increment;
                         if (current > target) current = target;
                         highlight.textContent = current.toLocaleString();
                         if (current < target) {
-                            setTimeout(updateCount, 25); // 增加间隔时间
+                            setTimeout(updateCount, 15); // 提高刷新频率
                         } else {
                             // 动画完成时添加脉冲效果
                             highlight.classList.add('animate');
@@ -680,8 +677,8 @@
         document.querySelectorAll('.image-row .img-box img, .wordcloud img').forEach(img => { img.style.cursor = 'zoom-in'; img.addEventListener('click', () => createModal(img.src, img.alt)); });
         // 已移除章节导航高亮逻辑
         
-        // 启动highlight-large数字动画
-        setTimeout(animateHighlightNumbers, 2000); // 延迟2秒启动动画
+        // 启动highlight-large数字动画（提前触发）
+        setTimeout(animateHighlightNumbers, 500);
     </script>
 </body>
 
