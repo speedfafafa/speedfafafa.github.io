@@ -149,6 +149,15 @@
             display: inline-block;
             margin: 0 3px;
         }
+        /* 与 .highlight-large 同样样式，但不参与数字动画 */
+        .highlight-large-static {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.6em;
+            position: relative;
+            display: inline-block;
+            margin: 0 3px;
+        }
         
         .data-source {
             text-align: right;
@@ -716,7 +725,7 @@
         
         <div class="container">
             <div class="stat-box">
-                <p class="large-text">据<strong>联合国教科文组织</strong>不完全统计，在全世界<strong class="highlight-large">47</strong>个国家、<strong class="highlight-large">218</strong>家博物馆中，中国文物数量达<strong class="highlight-large">167万</strong>件，而流散在<strong>海外民间</strong>的中国文物数量更是馆藏的<strong class="highlight-large">10倍</strong>之多。</p>
+                <p class="large-text">据<strong>联合国教科文组织</strong>不完全统计，在全世界<strong class="highlight-large">47</strong>个国家、<strong class="highlight-large">218</strong>家博物馆中，中国文物数量达<strong class="highlight-large">167万</strong>件，而流散在<strong>海外民间</strong>的中国文物数量更是馆藏的<strong class="highlight-large-static">10</strong><strong>倍</strong>之多。</p>
                 <p>数据来源：联合国教科文组织、央视新闻</p>
             </div>
             
@@ -840,13 +849,13 @@
                 if (!isNaN(target) && target > 0) {
                     let current = 0;
                     const isInt = Number.isInteger(target);
-                    const increment = Math.ceil(target / 600); // 降低速度，增加动画时间
+                    const increment = Math.ceil(target / 200); // 提升速度
                     const updateCount = () => {
                         current += increment;
                         if (current > target) current = target;
                         highlight.textContent = isInt ? current.toLocaleString() : current.toFixed(1);
                         if (current < target) {
-                            setTimeout(updateCount, 25); // 增加间隔时间，使动画更慢
+                            setTimeout(updateCount, 12); // 更快刷新
                         } else {
                             // 动画完成时添加脉冲效果
                             highlight.classList.add('animate');
