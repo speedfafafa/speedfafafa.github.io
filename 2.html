@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>破局：数字为翼 - 流失文物数字化回归</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --primary-light: #a83232;
+            --secondary: #d4af37;
+            --text: #333;
+            --text-light: #666;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.8;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            background-image: url('gpt.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, #5a0000 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 C40,0 60,0 80,20 C100,40 100,60 80,80 C60,100 40,100 20,80 C0,60 0,40 20,20 Z" stroke="%23ffffff10" stroke-width="1" fill="none"/></svg>');
+            background-size: 150px;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+
+        .header-content { flex: 1; min-width: 300px; }
+        .header-image { width: 300px; height: 225px; margin-left: 40px; background-color: transparent; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .header-image img { width: 100%; height: 100%; object-fit: contain; }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 50px;
+            font-size: 1.8em;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        
+        /* 放大字体样式 */
+        .large-text {
+            font-size: 1.3em;
+            line-height: 1.9;
+        }
+        
+        .extra-large-text {
+            font-size: 1.5em;
+            line-height: 2.0;
+        }
+        
+        .highlight-large {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.4em;
+            position: relative;
+            display: inline-block;
+            margin: 0 3px;
+        }
+        
+        .data-source {
+            text-align: right;
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+        
+        /* 动态数字动画样式 */
+        .animate-number {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .animate-number.animate {
+            animation: numberPulse 0.5s ease-in-out;
+        }
+        
+        @keyframes numberPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .container {
+            padding: 0 30px 50px;
+        }
+        
+        .stat-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-box::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            opacity: 0.1;
+            clip-path: polygon(0 0, 100% 100%, 100% 0);
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-size: 1.3em;
+            margin: 0 3px;
+        }
+        
+        .highlight-large {
+            font-weight: bold;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-size: 1.6em;
+            margin: 0 3px;
+        }
+        
+        .highlight::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--secondary);
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .image-gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: transform 0.3s;
+        }
+        
+        .image-gallery img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 改进的横向时间轴样式 */
+        .horizontal-timeline-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 40px 0;
+        }
+        
+        .horizontal-timeline {
+            display: flex;
+            min-width: 800px;
+            position: relative;
+            padding-bottom: 60px;
+        }
+        
+        .horizontal-timeline::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .timeline-item {
+            flex: 1;
+            padding: 0 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .timeline-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-top: 3px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover .timeline-card {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .timeline-dot {
+            width: 25px;
+            height: 25px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+        }
+        
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+            background-color: var(--primary);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1em;
+            margin: 10px 0 5px;
+            text-align: center;
+        }
+        
+        .timeline-title {
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 0 auto 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+        }
+        
+        .timeline-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .timeline-content {
+            display: none;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 数据图位置 */
+        .data-chart {
+            width: 100%;
+            height: 300px;
+            background-color: #f5f5f5;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        /* 轮播图样式 */
+        .swiper-frame { width: 100%; max-width: 720px; margin: 12px auto 10px; padding: 10px; background: #fff; border-radius: 18px; box-shadow: 0 8px 22px rgba(0,0,0,.12); }
+        .swiper-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            margin: 0; /* 由外层框控制外边距 */
+            border-radius: 16px; /* 更圆润 */
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 完整展示图片 */
+            background: #fff; /* 适配 contain 的留白背景 */
+            transition: transform 0.5s ease;
+        }
+
+        .swiper-slide:hover .swiper-image {
+            transform: scale(1.05);
+        }
+
+        .swiper-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .swiper-button-next, 
+        .swiper-button-prev {
+            color: var(--secondary);
+            background: rgba(255,255,255,0.25);
+            width: 40px; /* 更小按钮 */
+            height: 40px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+        }
+
+        .swiper-button-next::after, 
+        .swiper-button-prev::after {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .swiper-pagination-bullet {
+            background: white;
+            opacity: 0.6;
+            width: 10px;
+            height: 10px;
+            margin: 0 8px !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--secondary);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        /* 专用于“欧洲采集”内容区域的轮播覆写，确保不遮挡文字且标题置于下方 */
+        #horizontal-content-1 .swiper-container { margin: 0; }
+        #horizontal-content-1 .swiper-caption {
+            position: static;
+            background: none;
+            color: #333;
+            padding: 8px 0 0 0;
+            text-align: center;
+            font-size: 0.95em;
+        }
+        #horizontal-content-1 .swiper-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #horizontal-content-1 .swiper-image { height: calc(100% - 44px); }
+        #horizontal-content-1 + * { margin-top: 24px; }
+     
+        /* 其他样式 */
+        .ultra-wide-image {
+            width: 100%;
+            height: 0;
+            padding-bottom: 30%;
+            background-color: #f5f5f5;
+            margin: 30px 0;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .extra-image {
+            width: 100%;
+            height: 300px;
+            background-color: #f5f5f5;
+            margin: 30px 0;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 新增图片样式 - 自适应 */
+        .adaptive-image-container {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .adaptive-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .adaptive-image-16-9 {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .adaptive-image-16-9 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .adaptive-image-4-3 {
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 比例 */
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .adaptive-image-4-3 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+        
+        /* 垂直时间轴样式 */
+        .vertical-timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 60px auto;
+        }
+        
+        .vertical-timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item-vertical {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        
+        .timeline-item-vertical::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-header {
+            padding: 18px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .horizontal-timeline {
+                min-width: 100%;
+                flex-direction: column;
+            }
+            
+            .timeline-item {
+                margin-bottom: 40px;
+            }
+            
+            .horizontal-timeline::before {
+                display: none;
+            }
+            
+            .timeline-dot {
+                display: none;
+            }
+            
+            .vertical-timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item-vertical {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item-vertical::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+        /* 统一图片尺寸与交互 */
+        .image-gallery img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.12);
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+        .image-gallery img:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,.2); }
+        /* 自适应比例容器（默认） */
+        .adaptive-image-16-9, .adaptive-image-4-3 { max-width: 860px; margin: 24px auto; border-radius: 12px; overflow: hidden; }
+        .adaptive-image-16-9 img, .adaptive-image-4-3 img { transition: transform .6s ease; }
+        .adaptive-image-16-9:hover img, .adaptive-image-4-3:hover img { transform: scale(1.03); }
+        /* 可放大指示 */
+        .img-zoomable { cursor: zoom-in; }
+        /* 轻量 Lightbox */
+        .lb-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.78); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .lb-overlay.show { display: flex; }
+        .lb-overlay img { max-width: 92%; max-height: 92%; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.55); animation: lbIn .35s ease; }
+        @keyframes lbIn { from { opacity: .3; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+        /* 滚动淡入 */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+        .reveal.show { opacity: 1; transform: none; }
+        /* 从“韩国首站”以下的整体缩小规则 */
+        .post-korea-scope .image-gallery img { max-width: 360px; }
+        .post-korea-scope .adaptive-image-16-9, .post-korea-scope .adaptive-image-4-3 { max-width: 520px; margin: 16px auto; }
+        .post-korea-scope .swiper-container { max-width: 680px; }
+        /* 左右排布容器（段落下两图） */
+        .side-by-side-imgs { display: flex; gap: 16px; align-items: flex-start; justify-content: center; flex-wrap: wrap; margin: 8px 0 8px; }
+        .side-by-side-imgs .col { flex: 0 1 520px; }
+        .side-by-side-imgs .col .adaptive-image-16-9, 
+        .side-by-side-imgs .col .adaptive-image-4-3 { max-width: 520px; margin: 0; }
+        .side-by-side-imgs .col a { display: inline-block; margin-top: 8px; color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary); }
+        /* 点击引导提示样式 */
+        .hint-note { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); background: #fff8f0; border: 1px dashed var(--secondary); padding: 6px 12px; border-radius: 999px; font-size: 0.95em; }
+        .hint-dot { width: 8px; height: 8px; background: var(--secondary); border-radius: 50%; box-shadow: 0 0 0 0 rgba(212,175,55,0.6); animation: hintPulse 1.6s ease-out infinite; }
+        @keyframes hintPulse { 0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.6); } 100% { box-shadow: 0 0 0 10px rgba(212,175,55,0); } }
+        .timeline-header { cursor: pointer; }
+        /* 两列对称图片布局 */
+        .two-col-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: center; justify-content: center; max-width: 920px; margin: 14px auto 6px; }
+        .two-col-gallery .two-col-item { border-radius: 12px; overflow: hidden; }
+        @media (max-width: 720px) { .two-col-gallery { grid-template-columns: 1fr; } }
+        /* 文物三维数字化区域图片更小 */
+        .vertical-timeline > .timeline-item-vertical:first-child .image-gallery { gap: 10px; }
+        .vertical-timeline > .timeline-item-vertical:first-child .image-gallery img { max-width: 300px; }
+        /* 文物三维数字化：三图布局为上两张并排、下方一张居中跨列 */
+        .vertical-timeline > .timeline-item-vertical:first-child .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            justify-items: center;
+        }
+        .vertical-timeline > .timeline-item-vertical:first-child .image-gallery img {
+            width: 100%;
+            max-width: 300px;
+        }
+        .vertical-timeline > .timeline-item-vertical:first-child .image-gallery img:nth-child(3) {
+            grid-column: 1 / -1;
+            justify-self: center;
+        }
+        @media (max-width: 720px) {
+            .vertical-timeline > .timeline-item-vertical:first-child .image-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="fade">
+            <div class="header-content">
+                <h1>破局： 数字为翼</h1>
+                <p class="extra-large-text">流失文物"数字化回归"革命性路径</p>
+            </div>
+            <div class="header-image">
+                <img src="6.png" alt="配图">
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="stat-box">
+                <p class="large-text">流失文物"数字化回归"是指通过前沿技术实现文物"虚拟回家"的革命性路径，其核心意义在于以数字形态突破物理世界的时空枷锁，重构文化遗产的保护、研究与传承范式。</p>
+            </div>
+            
+            <h2>文物数字化回归路径 <span class="hint-note"><span class="hint-dot"></span>点击左右两侧卡片标题展开查看</span></h2>
+            
+            <div class="vertical-timeline">
+                <div class="timeline-item-vertical left" onclick="toggleContent(this)">
+                    <div class="timeline-header">文物三维数字化</div>
+                    <div class="timeline-content">
+                        <p>主要技术方法是三维扫描和摄影测量多图像三维重建。是通过数字技术手段采集文物表面形态空间信息和颜色信息，加工制作纹理模型的过程并转化为数字信息，实现文物的数字化存档。</p>
+                        <div class="image-gallery">
+                            <img src="14.jpg" alt="文物三维数字化示例1">
+                            <img src="15.jpg" alt="文物三维数字化示例2">
+                            <img src="16.jpg" alt="文物三维数字化示例3">
+                        </div>
+                        <p>图片来源："一带一路"联合实验室 <a href="https://www.dpm.org.cn/ydyl/detail/258786.html" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">文物三维数字化技术</a></p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item-vertical right" onclick="toggleContent(this)">
+                    <div class="timeline-header">AI修复</div>
+                    <div class="timeline-content">
+                        <p>AI技术在文化遗产修复中的主要作用表现在数字图像处理与分析、自动修复与重建、以及虚拟仿真等多个领域。通过对历史遗物的高精度扫描与数据采集，AI能够生成其三维数字模型，进而利用深度学习算法分析和识别文物的损坏部位。通过机器学习，AI系统能够基于大量历史数据，预测并重建文物丢失的细节或受损部分。</p>
+                        <div class="image-gallery">
+                            <img src="17.jpg" alt="AI修复示例">
+                        </div>
+                        <p><a href="https://www.163.com/dy/article/JOFADTEN05566SE0.html" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">先帮文物"活过来"，后给文物"看病"！AI新用途，惊呆30国专家</a></p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item-vertical left" onclick="toggleContent(this)">
+                    <div class="timeline-header">区块链存证技术</div>
+                    <div class="timeline-content">
+                        <p>《一种基于区块链技术的文物及艺术品数字存证的方法》发明专利已经在<span class="highlight" data-target="2017">2017</span>年<span class="highlight" data-target="11">11</span>月进行了公布。</p>
+                        <p>旨在利用区块链技术更好的保护文物艺术遗产。首先登记文物和文物所有人的信息，进行数字化，然后将这些数字化文件记录保存在区块链上。因为区块链具有永久存储、不可篡改的特性，这种发明可以建立文物实物、文物信息数据（包括照片、三维模型等）、文物所有者的一一对应关系，可以有效的解决文物保管、权属确认、防盗、鉴定、防损等问题。</p>
+                        <div class="image-gallery">
+                            <img src="18.jpg" alt="区块链存证示例1">
+                            <img src="19.jpg" alt="区块链存证示例2">
+                        </div>
+                        <p>
+                            <a href="https://www.sohu.com/a/824056223_100082943" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">文物数字资源存证 I 博物馆知识产权保护权证链应用介绍</a><br>
+                            <a href="https://www.docin.com/p-4810916379.html" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">基于区块链的文物存证体系-剖析洞察</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2><span style="background-color: var(--secondary); padding: 2px 10px; border-radius: 4px;">最新热点专栏：甲骨文数字化回归</span></h2>
+            
+            <div class="stat-box">
+                <p class="large-text"><span class="highlight-large" data-target="2025">2025</span>年<span class="highlight-large" data-target="8">8</span>月安阳"甲骨文数字化团队"完成<span class="highlight-large" data-target="542">542</span>片海外甲骨采集工作</p>
+                <div class="data-source">数据来源：央视新闻</div>
+            </div>
+            
+            <div class="two-col-gallery">
+                <div class="two-col-item adaptive-image-4-3">
+                    <img src="20.jpg" alt="甲骨文数字化1">
+                </div>
+                <div class="two-col-item adaptive-image-4-3">
+                    <img src="21.jpg" alt="甲骨文数字化2">
+                </div>
+            </div>
+            <p>图片来源：央视新闻</p>
+            
+            <!-- 改进的横向时间轴 -->
+            <div class="horizontal-timeline-container post-korea-scope">
+                <div class="horizontal-timeline">
+                    <!-- 韩国首站 -->
+                    <div class="timeline-item" onclick="toggleHorizontalContent(0)">
+                        <div class="timeline-card">
+                            <div class="timeline-title">韩国首站</div>
+                            <div class="timeline-date"><span class="highlight" data-target="2024">2024</span>年<span class="highlight" data-target="8">8</span>月</div>
+                            
+                            <p>刘永革带领团队成员飞赴韩国，正式开启全球数字甲骨回归计划...</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <!-- 欧洲采集 -->
+                    <div class="timeline-item" onclick="toggleHorizontalContent(1)">
+                        <div class="timeline-card">
+                            <div class="timeline-title">欧洲采集</div>
+                            <div class="timeline-date"><span class="highlight" data-target="2025">2025</span>年<span class="highlight" data-target="8">8</span>月</div>
+                            
+                            <p>团队赴欧洲进行甲骨高清数据采集工作，542片甲骨以数字化形式回归...</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <!-- 未来计划 -->
+                    <div class="timeline-item" onclick="toggleHorizontalContent(2)">
+                        <div class="timeline-card">
+                            <div class="timeline-title">未来计划</div>
+                            <div class="timeline-date">2025年后</div>
+                            
+                            <p>与瑞士、瑞典、荷兰、比利时等欧洲国家协商推进甲骨数字化回归工作...</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    
+                    <!-- 殷契文渊 -->
+                    <div class="timeline-item" onclick="toggleHorizontalContent(3)">
+                        <div class="timeline-card">
+                            <div class="timeline-title">殷契文渊平台</div>
+                            <div class="timeline-date">持续更新</div>
+                            
+                            <p>所有采集的甲骨数据将上传至"殷契文渊"甲骨文AI协同平台...</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+                
+                <!-- 时间轴内容区域 -->
+                <div class="timeline-content" id="horizontal-content-0">
+                    <p>刘永革带领团队成员张展、李邦、郭安、龚慕凡飞赴韩国，正式开启全球数字甲骨回归。</p>
+                                            <p class="large-text">团队成员运用上亿像素的专业相机进行高清拍摄、微痕摄影，对每一片甲骨正反两面、一面八个方向、一个方向七个角度拍摄近<span class="highlight-large" data-target="120">120</span>张照片，然后是存储备份，海外第一批共计<span class="highlight-large" data-target="7">7</span>片甲骨实物的全信息、高保真数据采集成功完成。实验室团队携带<span class="highlight-large" data-target="7">7</span>片韩国收藏甲骨全信息数据回到安阳，我国流失海外甲骨文文化遗产，首次以数字化形态与故土重逢。</p>
+                    <p><a href="https://jgwsys.aynu.edu.cn/content2024.jsp?urltype=news.NewsContentUrl&wbtreeid=1035&wbnewsid=2497" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">海外首站！全球数字甲骨回归计划开启！</a></p>
+                </div>
+                
+                <div class="timeline-content" id="horizontal-content-1">
+                    <p class="large-text">该实验室团队赴欧洲进行甲骨高清数据采集工作，<span class="highlight-large" data-target="542">542</span>片收藏于法国和德国相关机构的甲骨，已以高精度数字化信息档案的形式回归"甲骨文故乡"河南安阳。</p>
+                    
+                    <p class="large-text">此次采集的<span class="highlight-large" data-target="542">542</span>片甲骨中：</p>
+                    <ul class="large-text">
+                        <li><span class="highlight-large" data-target="42">42</span>片为法国国家图书馆、赛努奇博物馆、吉美博物馆馆藏</li>
+                        <li><span class="highlight-large" data-target="15">15</span>片来自法兰西学院汉学研究所</li>
+                        <li><span class="highlight-large" data-target="485">485</span>片为德国柏林民族学博物馆馆藏</li>
+                    </ul>
+                    <!-- 欧洲采集：博物馆图片轮播（移入此处） -->
+                    <div class="swiper-frame">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="22.jpg" alt="法国国家图书馆" class="swiper-image">
+                                <div class="swiper-caption">法国国家图书馆</div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="23.jpg" alt="赛努奇博物馆" class="swiper-image">
+                                <div class="swiper-caption">赛努奇博物馆</div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="24.jpg" alt="吉美博物馆" class="swiper-image">
+                                <div class="swiper-caption">吉美博物馆</div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="25.jpg" alt="法兰西学院汉学研究院" class="swiper-image">
+                                <div class="swiper-caption">法兰西学院汉学研究院</div>
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="26.jpg" alt="德国柏林民族学博物馆" class="swiper-image">
+                                <div class="swiper-caption">德国柏林民族学博物馆</div>
+                            </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-content" id="horizontal-content-2">
+                    <p>与瑞士、瑞典、荷兰、比利时等欧洲国家协商推进甲骨数字化回归工作，力争早日完成欧洲国家甲骨的数字化采集。</p>
+                    <p><a href="https://www.henan.gov.cn/2024/01-15/2886086.html" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">千万里追寻，数十载探索，手挽手共创……我们把"甲骨文"接回家</a></p>
+                </div>
+                
+                <div class="timeline-content" id="horizontal-content-3">
+                    <p>该实验室团队正对此次采集的原始数据进行整理加工，构建甲骨全信息模型，并将上传至"殷契文渊"甲骨文AI协同平台，供全球研究者与爱好者共享。</p>
+                    <div class="adaptive-image-container">
+                        <img src="28.jpg" alt="殷契文渊平台图片1" class="adaptive-image">
+                    </div>
+                    <div class="adaptive-image-container">
+                        <img src="29.jpg" alt="殷契文渊平台图片2" class="adaptive-image">
+                    </div>
+                                            <p class="large-text"><span class="highlight-large" data-target="2019">2019</span>年<span class="highlight-large" data-target="10">10</span>月推出了"殷契文渊"，利用大数据、云计算将甲骨文数字化、智能化，协力构建甲骨文大数据平台。这一平台包括"三库一平台"，即著录库、字形库和文献库，以及甲骨文知识服务平台，现已有：</p>
+                        <ul class="large-text">
+                            <li>甲骨著录<span class="highlight-large" data-target="153">153</span>种</li>
+                            <li>图像<span class="highlight-large" data-target="239289">239,289</span>幅</li>
+                            <li>甲骨文<span class="highlight-large" data-target="4000">4,000</span>多字头</li>
+                            <li>学术论著<span class="highlight-large" data-target="34234">34,234</span>种</li>
+                        </ul>
+                    <p><a href="https://jgw.aynu.edu.cn/" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">访问殷契文渊平台</a></p>
+                </div>
+            </div>
+            
+            <p>通过<span class="highlight">高清拍摄、微距拍摄、三维建模</span>等，进行全信息采集，实现甲骨实物在数字空间的高保真还原和保护。</p>
+
+            <!-- 左右两图 + 左图下方链接 -->
+            <div class="side-by-side-imgs post-korea-scope">
+                <div class="col">
+                    <div class="adaptive-image-16-9"><img src="28.jpg" alt="甲骨文数字化示例1"></div>
+                    <a href="https://www.cssn.cn/skgz/bwyc/202307/t20230720_5669261.shtml">数字资源活化甲骨文研究-中国社会科学网</a>
+                </div>
+                <div class="col">
+                    <div class="adaptive-image-4-3"><img src="27.jpg" alt="甲骨文数字化示例2"></div>
+                </div>
+            </div>
+            
+            <footer>
+                <p>© 2025 流失文物数字化回归项目</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        function toggleHorizontalContent(index) {
+            // 隐藏所有内容
+            document.querySelectorAll('.horizontal-timeline-container .timeline-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // 重置所有点的样式
+            document.querySelectorAll('.horizontal-timeline .timeline-dot').forEach(dot => {
+                dot.style.background = 'white';
+                dot.style.borderColor = 'var(--primary)';
+            });
+            
+            // 显示选中的内容
+            const content = document.getElementById(`horizontal-content-${index}`);
+            if (content) {
+                content.style.display = 'block';
+            }
+            
+            // 设置选中点的样式
+            const dots = document.querySelectorAll('.horizontal-timeline .timeline-dot');
+            if (dots[index]) {
+                dots[index].style.background = 'var(--primary)';
+                dots[index].style.borderColor = 'var(--primary)';
+            }
+        }
+
+        function toggleContent(element) {
+            const content = element.querySelector('.timeline-content');
+            const isActive = content.style.display === 'block';
+            
+            document.querySelectorAll('.vertical-timeline .timeline-content').forEach(item => {
+                item.style.display = 'none';
+            });
+            
+            if (!isActive) {
+                content.style.display = 'block';
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function animateNumbers() {
+            const highlights = document.querySelectorAll('.highlight[data-target], .highlight-large[data-target]');
+            highlights.forEach(highlight => {
+                const target = parseInt(highlight.getAttribute('data-target').replace(/,/g, ''));
+                let current = 0;
+                const increment = Math.max(1, Math.ceil(target / 600)); // 降低速度
+                const updateCount = () => {
+                    current += increment;
+                    if (current > target) current = target;
+                    highlight.textContent = current.toLocaleString();
+                    if (current < target) {
+                        setTimeout(()=>requestAnimationFrame(updateCount), 25); // 增加间隔时间
+                    } else {
+                        // 动画完成时添加脉冲效果
+                        highlight.classList.add('animate');
+                        setTimeout(() => highlight.classList.remove('animate'), 500);
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleHorizontalContent(0);
+            animateNumbers();
+            // 标记需要淡入的元素（包含标题区）
+            document.querySelectorAll('header, .stat-box, .vertical-timeline, .horizontal-timeline-container, .swiper-container, .image-gallery, .adaptive-image-16-9, .adaptive-image-4-3').forEach(el => el.classList.add('reveal'));
+            const io = new IntersectionObserver(entries=>{
+                entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('show'); io.unobserve(en.target); } });
+            },{ threshold:.18, rootMargin:'0px 0px -40px' });
+            document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+            // 初始化轮播图
+            const swiper = new Swiper('.swiper-container', {
+                loop: true,
+                centeredSlides: true,
+                spaceBetween: 16,
+                grabCursor: true,
+                slidesPerView: 1.1,
+                breakpoints: {
+                    640: { slidesPerView: 1.2 },
+                    920: { slidesPerView: 1.4 },
+                    1200: { slidesPerView: 1.6 }
+                },
+                autoplay: {
+                    delay: 3800,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            // 轻量 Lightbox：为主要内容区图片添加放大
+            const zoomables = document.querySelectorAll('.container .image-gallery img, .container .adaptive-image-16-9 img, .container .adaptive-image-4-3 img, .container .swiper-slide img');
+            zoomables.forEach(img=>img.classList.add('img-zoomable'));
+            let overlay;
+            function openLightbox(src, alt){
+                if(!overlay){
+                    overlay = document.createElement('div');
+                    overlay.className = 'lb-overlay';
+                    overlay.innerHTML = '<img alt="">';
+                    document.body.appendChild(overlay);
+                    overlay.addEventListener('click', ()=> overlay.classList.remove('show'));
+                    document.addEventListener('keydown', e=>{ if(e.key==='Escape') overlay.classList.remove('show'); });
+                }
+                const im = overlay.querySelector('img');
+                im.src = src; im.alt = alt || '';
+                overlay.classList.add('show');
+            }
+            zoomables.forEach(img=>{
+                img.addEventListener('click', ()=> openLightbox(img.src, img.alt));
+            });
+        });
+    </script>
+</body>
+</html>

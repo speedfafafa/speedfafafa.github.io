@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>践行：万象归库</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --primary-light: #a83232;
+            --secondary: #d4af37;
+            --text: #333;
+            --text-light: #666;
+        }
+        body {
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.8;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            background-image: url('gpt.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body::before { display: none; }
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, #5a0000 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 C40,0 60,0 80,20 C100,40 100,60 80,80 C60,100 40,100 20,80 C0,60 0,40 20,20 Z" stroke="%23ffffff10" stroke-width="1" fill="none"/></svg>');
+            background-size: 150px;
+            opacity: 0.3;
+        }
+        h1 { margin: 0; font-size: 2.8em; font-weight: 700; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+        .header-content { flex: 1; min-width: 300px; }
+        .header-image { width: 300px; height: 225px; margin-left: 40px; background-color: transparent; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .header-image img { width: 100%; height: 100%; object-fit: contain; }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-top: 50px; font-size: 1.8em; letter-spacing: 1px; position: relative; }
+        h2::before { content: ""; position: absolute; left: 0; bottom: -2px; width: 100px; height: 2px; background: var(--secondary); }
+        .container { padding: 0 30px 50px; }
+        img, .image-gallery img { max-width: 100%; height: auto; display: block; margin: 18px auto; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); transition: transform .3s, box-shadow .3s; }
+        img:hover, .image-gallery img:hover { transform: scale(1.06); box-shadow: 0 12px 36px rgba(139,0,0,0.18); }
+        a:hover { color: var(--primary); background: var(--secondary); border-radius: 4px; transition: background .2s, color .2s; }
+        /* 平台卡片 */
+        .platforms { display: flex; flex-wrap: nowrap; gap: 32px; justify-content: space-between; align-items: stretch; margin: 40px 0 0 0; overflow-x: auto; }
+        .platform-card { background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.12); padding:20px; width: 320px; flex: 0 0 320px; }
+        .platform-card h3{ margin:0 0 8px 0; color:var(--primary);} 
+        .platform-card a{ color:var(--primary);} 
+        .platform-card ul{ padding-left: 18px; }
+        /* 案例专区 */
+        .case-section{ margin-top: 40px; }
+        .case-gallery{ display:flex; flex-wrap:wrap; gap:22px; justify-content:center; }
+        .case-card{ background:#fff; border-radius:12px; width: 320px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.1); flex-shrink: 0; }
+        .case-card h3{ margin:0 0 12px 0; color:var(--primary);} 
+        .image-with-caption{ text-align:center; }
+        .image-caption{ margin:8px 0 0 0; color:var(--text-light); font-size:.95em; }
+        /* 淡入动画 */
+        .fade { opacity:0; transform: translateY(30px); transition: opacity .9s ease, transform .9s ease; }
+        .fade.show { opacity:1; transform: none; }
+        
+        /* 放大字体样式 */
+        .large-text {
+            font-size: 1.3em;
+            line-height: 1.9;
+        }
+        
+        .extra-large-text {
+            font-size: 1.5em;
+            line-height: 2.0;
+        }
+        
+        .highlight-large {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.6em;
+            position: relative;
+            display: inline-block;
+            margin: 0 3px;
+        }
+        
+        .data-source {
+            text-align: right;
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+        
+        /* 动态数字动画样式 */
+        .animate-number {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .animate-number.animate {
+            animation: numberPulse 0.5s ease-in-out;
+        }
+        
+        @keyframes numberPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        /* 文本信息框（参考板块二样式） */
+        .stat-box { background-color: #fff; border-radius: 8px; padding: 24px; margin: 24px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); position: relative; overflow: hidden; }
+        .stat-box::after { content: ""; position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: var(--primary); opacity: 0.1; clip-path: polygon(0 0, 100% 100%, 100% 0); }
+        /* 追索路径 卡片 */
+        .intro { margin: 0 0 14px 0; color: var(--text); }
+        .path-section h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .hover-hint { color: var(--primary); font-size: .95em; background: #fff8f0; border: 1px dashed var(--secondary); padding: 2px 10px; border-radius: 999px; }
+        .path-hero { text-align:center; }
+        .path-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; margin-top: 14px; }
+        .path-card { background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.12); padding:16px; position:relative; overflow:hidden; }
+        .path-card h3 { margin:0 0 8px 0; color: var(--primary); }
+        .path-card p { margin:8px 0; }
+        .path-card { cursor: pointer; }
+        .path-images { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+        .path-images .image-with-caption { width: 48%; min-width: 200px; }
+        .path-images .image-caption { font-size: .9em; }
+        .path-detail { opacity: .0; max-height: 0; transition: opacity .3s ease, max-height .3s ease; }
+        .path-card:hover .path-detail { opacity: 1; max-height: 1000px; }
+        /* 整卡隐藏式：非悬浮时仅显示标题 */
+        .path-card > :not(h3) { opacity: 0; max-height: 0; overflow: hidden; transition: opacity .25s ease, max-height .25s ease; }
+        .path-card:hover > :not(h3) { opacity: 1; max-height: 2000px; }
+        @media (max-width: 760px){ .path-grid { grid-template-columns: 1fr; } .path-images .image-with-caption { width: 100%; } }
+        /* 回归历程 时间轴（简版） */
+        .mini-timeline { width:100%; overflow-x:auto; padding: 10px 0; margin: 12px 0 26px; cursor: grab; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .mini-timeline.dragging { cursor: grabbing; }
+        .mini-line { display:flex; gap:18px; align-items:flex-start; min-width: 720px; position: relative; }
+        .mini-item { background:#fff; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.1); padding:10px 12px; min-width: 220px; flex: 0 0 auto; scroll-snap-align: start; }
+        /* 可拨动浏览的时间轴（Swiper） */
+        .timeline-swiper { width: 100%; padding: 10px 0 24px; }
+        .timeline-swiper .swiper-slide { width: auto; }
+        .timeline-card-sw { background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.12); padding:12px 14px; width: 260px; }
+        .timeline-card-sw .date { color: var(--primary); font-weight:700; margin-bottom: 6px; }
+        /* 全可视时间轴（无滚动） */
+        .full-timeline { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; margin: 12px 0 6px; }
+        .full-item { background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.12); padding:12px 14px; }
+        .full-item .date { color: var(--primary); font-weight:700; margin-bottom: 6px; }
+        @media (max-width: 1000px){ .full-timeline { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+        @media (max-width: 760px){ .full-timeline { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+        @media (max-width: 520px){ .full-timeline { grid-template-columns: 1fr; } }
+        .mini-item .date { color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="fade">
+            <div class="header-content"><h1> 践行：万象归库</h1></div>
+            <div class="header-image"><img src="6.png" alt="配图"></div>
+        </header>
+        <div class="container">
+            <div class="stat-box fade">
+                <p class="large-text">安阳甲骨的数字化回归并非孤例，它是我国近年来在流失文物追索与数字化保护领域多轨并进、协同发力的一个缩影。一个覆盖各类流失文物、联通海内外的国家数字文脉基因库正在加速形成。</p>
+            </div>
+
+            <div class="path-section fade">
+                <h2>1. 追索路径：四维并行的实物回归 <span class="hover-hint">鼠标悬停以上位置展开</span></h2>
+                <div class="path-hero">
+                    <img src="图片17.png" alt="追索路径示意图" style="max-width:560px; border-radius:12px;" />
+                </div>
+                <div class="path-grid" style="margin-top: 16px;">
+                    <div class="path-card">
+                        <h3>1) 外交谈判</h3>
+                        <p>以政府间协商或国际公约为框架，通过正式外交渠道推动文物返还。</p>
+                        <p><strong>典型案例：</strong>战国青铜敦追索（1989年）</p>
+                        <div class="path-detail">
+                            <p>这是新中国成立后首次通过外交途径追回的流失文物，为后续国际追索工作奠定了基础。</p>
+                        </div>
+                        <div class="path-images">
+                            <div class="image-with-caption">
+                                <img src="图片18.png" alt="外交谈判图1">
+                                <p class="image-caption">外交谈判图 1</p>
+                            </div>
+                            <div class="image-with-caption">
+                                <img src="图片19.png" alt="外交谈判图2">
+                                <p class="image-caption">外交谈判图 2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-card">
+                        <h3>2) 司法归还</h3>
+                        <p>通过跨境司法协作、海关查扣或联合执法行动，依法追索走私文物。</p>
+                        <p><strong>典型案例：</strong>2020年68件流失英国文物回国</p>
+                        <p><small>（打通流失文物“回家”之路_文章_民主与法制网 国家一类新闻网站）</small></p>
+                        <div class="path-images">
+                            <div class="image-with-caption">
+                                <img src="图片20.png" alt="陶俑2+陶女俑1">
+                                <p class="image-caption">陶俑2+陶女俑1</p>
+                            </div>
+                            <div class="image-with-caption">
+                                <img src="图片21.png" alt="唐代七星盘">
+                                <p class="image-caption">唐代七星盘</p>
+                            </div>
+                            <div class="image-with-caption">
+                                <img src="图片22.png" alt="青白釉执壶">
+                                <p class="image-caption">青白釉执壶</p>
+                            </div>
+                            <div class="image-with-caption">
+                                <img src="图片23.png" alt="青瓷带盖梅瓶1对4件">
+                                <p class="image-caption">青瓷带盖梅瓶1对4件</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-card">
+                        <h3>3) 公益捐赠</h3>
+                        <p>海外华人华侨、国际友好人士、外国政府和博物馆以善意捐赠或友好外交促成回归。</p>
+                        <p><strong>典型案例：</strong>何鸿燊捐赠马首、猪首（2003-2019年）</p>
+                        <div class="path-images">
+                            <div class="image-with-caption">
+                                <img src="图片24.png" alt="公益捐赠图1">
+                                <p class="image-caption">公益捐赠图 1</p>
+                            </div>
+                            <div class="image-with-caption">
+                                <img src="图片25.png" alt="公益捐赠图2">
+                                <p class="image-caption">公益捐赠图 2</p>
+                            </div>
+                            <div class="image-with-caption">
+                                <img src="图片26.png" alt="公益捐赠图3">
+                                <p class="image-caption">公益捐赠图 3</p>
+                            </div>
+                        </div>
+                        <div class="path-detail">
+                            <p>圆明园十二生肖兽首铜像原为海晏堂外喷泉一部分，1860年后流散海外，已有七尊归国。</p>
+                        </div>
+                    </div>
+                    <div class="path-card">
+                        <h3>4) 商业购回</h3>
+                        <p>针对难以通过法律追索或外交回归的文物，采用商业购买的权宜之计。</p>
+                        <p><strong>典型案例：</strong>战国文物子弹库楚帛书（2025年5月18日楚帛书第二、三卷回归）</p>
+                        <p><small>（楚帛书_百度百科）</small></p>
+                        <div style="text-align:center">
+                            <img src="图片27.png" alt="楚帛书" style="max-width:360px;">
+                        </div>
+                        <h4 class="fade" style="margin-top:16px; color: var(--primary);">回归历程（简时间轴）</h4>
+                        <div class="full-timeline fade">
+                            <div class="full-item"><div class="date">1942/09</div><div>楚帛书出土（长沙子弹库1号楚墓）</div></div>
+                            <div class="full-item"><div class="date">1946</div><div>被柯强骗取并运至美国</div></div>
+                            <div class="full-item"><div class="date">1949</div><div>《四时令》借存纽约大都会博物馆</div></div>
+                            <div class="full-item"><div class="date">1964/04/10</div><div>取回《四时令》售出</div></div>
+                            <div class="full-item"><div class="date">1966</div><div>楚帛书落入赛克勒之手</div></div>
+                            <div class="full-item"><div class="date">2024/06</div><div>移交当年盒盖</div></div>
+                            <div class="full-item"><div class="date">2025/05/16</div><div>国家文物局成功接收第二、三卷</div></div>
+                            <div class="full-item"><div class="date">2025/05/18</div><div>第二、三卷回国抵达北京首都机场</div></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <h2>二、数字基建：国家级数字平台矩阵</h2>
+            <div class="platforms fade">
+                <div class="platform-card">
+                    <h3>中国被盗（丢失）文物信息发布平台</h3>
+                    <a href="http://bdww.sach.gov.cn" target="_blank">http://bdww.sach.gov.cn</a>
+                    <ul>
+                        <li>由公安部和国家文物局指导建立，是打击文物犯罪和国际追索的重要法律依据。</li>
+                    </ul>
+                    <div style="text-align:center; margin-bottom:12px;">
+                        <img src="图片28.png" alt="平台界面示意图" style="max-width:320px; margin:10px auto 0 auto;">
+                    </div>
+                    <ul>
+                        <li>2024年通过平台图像比对，确认纽约拍品“西周青铜罍”为陕西周原遗址盗掘赃物，72小时内完成司法冻结。</li>
+                    </ul>
+                    <div style="text-align:center;">
+                        <img src="图片29.png" alt="西周青铜罍司法冻结" style="max-width:320px; margin:10px auto 0 auto;">
+                    </div>
+                </div>
+                <div class="platform-card">
+                    <h3>海外中国文物信息数据库</h3>
+                    <a href="http://www.cchicc.org.cn" target="_blank">www.cchicc.org.cn</a>
+                    <ul>
+                        <li>较为全面地掌握海外中国文物信息，结合国内文物信息，形成完整历史文物信息。</li>
+                        <li>多级数据权限体系，支持公众、研究者、专员、国际协作等多层级访问。</li>
+                        <li>文物数字指纹系统、跨平台检索联盟等技术创新。</li>
+                        <li>登记文物总量<strong class="highlight-large">160万</strong>件，覆盖<strong class="highlight-large">47</strong>国<strong class="highlight-large">218</strong>家机构。</li>
+                    </ul>
+                    <div style="text-align:center; margin-top:18px;">
+                        <img src="50.png" alt="海外中国文物信息数据库界面1" style="max-width:320px; margin:10px auto 0 auto;">
+                        <img src="51.png" alt="海外中国文物信息数据库界面2" style="max-width:320px; margin:10px auto 0 auto;">
+                    </div>
+                </div>
+                <div class="platform-card">
+                    <h3>数字藏经洞</h3>
+                    <a href="https://cave17.e-dunhuang.com/" target="_blank">https://cave17.e-dunhuang.com/</a>
+                    <ul>
+                        <li>2025年5月31日由敦煌研究院发布，联合腾讯等机构共建。</li>
+                        <li>集纳国内外多家机构收藏的藏经洞文物数字资源，推进流失海外敦煌文物在数字世界“重聚”。</li>
+                        <li>具备图像拼接、知识图谱、全文检索等多项功能。</li>
+                    </ul>
+                    <div style="text-align:center; margin-top:18px;">
+                        <img src="图片30.png" alt="数字藏经洞平台界面" style="max-width:320px; margin:10px auto 0 auto;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-section">
+                <h2>流失文物数字化案例专区</h2>
+                <div class="case-gallery fade" style="flex-wrap: nowrap; overflow-x: auto;">
+                    <div class="case-card">
+                        <h3>1.敦煌壁画数字化：从“抢救性存档”到“知识宇宙重构”</h3>
+                        <img src="图片31.png" alt="敦煌壁画数字化" style="max-width:300px; width:100%; height:auto; display:block; margin:0 auto;">
+                        <p>敦煌作为世界文化及日产拥有丰富的历史文化和艺术价值，然而有多种因敦煌石窟面临着严重的保护问题，随着数字化技术的发展，数字敦煌项目应运而生，旨在利用数字化技术不对敦煌石窟进行记录、保存和展示。</p>
+                        <p><strong>数据规模与文明延续：</strong></p>
+                        <div style="text-align:center; margin:18px 0;">
+                            <img src="图片32.png" alt="数据规模与文明延续" style="max-width:300px; width:100%; height:auto; display:block; margin:0 auto;">
+                        </div>
+                        <div style="margin:18px 0;">
+                            <a href="https://cloud.tencent.com/developer/article/2345678" target="_blank">浅谈敦煌壁画的数字保护技术 - 腾讯云开发者社区-腾讯云</a>
+                            <div class="image-gallery" style="margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                                <img src="图片33.png" alt="敦煌文化图片1" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                                <img src="图片34.png" alt="敦煌文化图片2" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                                <img src="图片35.png" alt="敦煌文化图片3" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                            </div>
+                        </div>
+                        <p>从1998年中美合作建立“国际敦煌档案”，到2025年主导“数字藏经洞”平台，中国完成从技术引进到标准输出的跃迁。</p>
+                    </div>
+                    <div class="case-card">
+                        <h3>2.海外青铜器3D复原：通过数字化实现“数字归还”</h3>
+                        <p>随着数字技术的飞速发展，流失海外的珍贵青铜器正通过数字化手段实现“数字归还”。这项工作不仅修复了破碎的文物，更在重构中华文明的基因链，为全球文化遗产保护提供了新范式。</p>
+                        <div class="image-gallery" style="margin-top:6px; text-align:center;">
+                            <img src="图片36.png" alt="青铜器3D复原示例1" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                            <img src="图片37.png" alt="青铜器3D复原示例2" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                        </div>
+                        <p><strong>青铜器缺块的多元数字化补配流程</strong></p>
+                        <div style="margin-top:18px;">
+                            <a href="https://content-static.cctvnews.cctv.com/snow-book/index.html?item_id=16775896667791796027&toc_style_id=feeds_default&share_to=copy_url&track_id=e790fa1e-c82a-4bab-baa6-af8729d700bc" target="_blank" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary); word-break: break-all;">央视新闻：三星堆青铜器3D打印保护技术</a>
+                            <p style="margin-top:8px; font-size:0.9em; color:var(--text-light);">（来源：央视新闻客户端）</p>
+                            <p style="margin-top:8px; font-size:1.1em; color:var(--primary);"><strong>早年实践：三星堆最大青铜器出土前敷个"面膜" 3D打印保护套首次用于文物提取</strong></p>
+                            <div class="image-gallery" style="margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                                <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                                    <img src="52.png" alt="三星堆青铜器3D打印保护技术1" style="max-width:140px; width:100%; height:auto; display:block; margin:4px;">
+                                    <img src="53.png" alt="三星堆青铜器3D打印保护技术2" style="max-width:140px; width:100%; height:auto; display:block; margin:4px;">
+                                </div>
+                                <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                                    <img src="54.png" alt="三星堆青铜器3D打印保护技术3" style="max-width:140px; width:100%; height:auto; display:block; margin:4px;">
+                                    <img src="55.png" alt="三星堆青铜器3D打印保护技术4" style="max-width:140px; width:100%; height:auto; display:block; margin:4px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <h3>3.“汉典重光”工程：古籍再生激活华夏文脉</h3>
+                        <p><a href="https://wenyuan.aliyun.com/home" target="_blank" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">汉典重光平台 - 阿里云文渊阁</a></p>
+                        <p>基于2019年阿里巴巴与四川大学提出的“数字化回归”设想，联合加州大学伯克利分校东亚图书馆启动古籍数字化工程，涉及北宋《金粟山大藏经》、南宋《後村居士集》等珍本。</p>
+
+                        <div style="text-align:center; margin:18px 0;">
+                            <img src="图片38.png" alt="汉典重光示例" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                        </div>
+                        <div style="text-align:center; margin:18px 0;">
+                            <img src="图片39.png" alt="汉典重光成果" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                        </div>
+                        <p style="margin-top:8px; font-size:0.9em; color:var(--text-light); text-align:center;"><a href="https://mp.weixin.qq.com/s/Dm9xahuha27gB9WmqWyzDw" target="_blank" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">北宋经写本数字化回归详情</a>（来源：微信公众号）</p>
+                        <div style="text-align:center; margin:18px 0;">
+                            <img src="56.png" alt="汉典重光古籍数字化平台示例1" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                            <p style="margin-top:8px; font-size:0.9em; color:var(--text-light);">图片来源："汉典重光"古籍数字化平台</p>
+                        </div>
+                        <div style="text-align:center; margin:18px 0;">
+                            <img src="57.png" alt="汉典重光古籍数字化平台示例2" style="max-width:300px; width:100%; height:auto; display:block; margin:8px auto;">
+                            <p style="margin-top:8px; font-size:0.9em; color:var(--text-light);">图片来源："汉典重光"古籍数字化平台</p>
+                        </div>
+                        <p style="margin-top:18px; text-align:center;"><a href="https://baike.baidu.com/activity/knowledge?pageKey=4rZkPpPK-1&cdVersion=0.1.29&channel=baike_pcnavbar" target="_blank" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">了解更多：百度百科 - 古籍数字化保护</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>© 2025 国家数字文脉基因库项目</p>
+            </footer>
+        </div>
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // 淡入触发
+        function reveal() {
+            document.querySelectorAll('.fade').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) el.classList.add('show');
+            });
+        }
+        document.addEventListener('DOMContentLoaded', reveal);
+        document.addEventListener('scroll', reveal, { passive: true });
+
+        // 迷你时间轴支持鼠标拖拽横向滚动
+        function enableDragScroll(container) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                container.classList.add('dragging');
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+            container.addEventListener('mouseleave', () => { isDown = false; container.classList.remove('dragging'); });
+            container.addEventListener('mouseup', () => { isDown = false; container.classList.remove('dragging'); });
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 1;
+                container.scrollLeft = scrollLeft - walk;
+            });
+        }
+        // 数字动画函数
+        function animateNumbers() {
+            const highlights = document.querySelectorAll('.highlight-large');
+            highlights.forEach(highlight => {
+                const text = highlight.textContent.replace(/[^\d]/g, '');
+                const target = parseInt(text, 10);
+                if (target > 0) {
+                    let current = 0;
+                    const increment = Math.ceil(target / 600); // 降低速度
+                    const updateCount = () => {
+                        current += increment;
+                        if (current > target) current = target;
+                        highlight.textContent = current.toLocaleString();
+                        if (current < target) {
+                            setTimeout(updateCount, 25); // 增加间隔时间
+                        } else {
+                            // 动画完成时添加脉冲效果
+                            highlight.classList.add('animate');
+                            setTimeout(() => highlight.classList.remove('animate'), 500);
+                        }
+                    };
+                    updateCount();
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.mini-timeline').forEach(enableDragScroll);
+            // 启动数字动画
+            setTimeout(animateNumbers, 1000); // 延迟1秒启动动画
+        });
+    </script>
+</body>
+</html>

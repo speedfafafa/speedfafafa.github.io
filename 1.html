@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字为"舟"：海外流失文物的云端回归</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- 添加Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --primary-light: #a83232;
+            --secondary: #d4af37;
+            --text: #333;
+            --text-light: #666;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.8;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* 背景图样式 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('gpt.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: brightness(0.7);
+            z-index: -1;
+        }
+        
+        /* 内容容器样式 */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(248, 245, 240, 0.9);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, #5a0000 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 C40,0 60,0 80,20 C100,40 100,60 80,80 C60,100 40,100 20,80 C0,60 0,40 20,20 Z" stroke="%23ffffff10" stroke-width="1" fill="none"/></svg>');
+            background-size: 150px;
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .header-image {
+            width: 300px;
+            height: 225px; /* 保持4:3比例 */
+            margin-left: 40px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .main-title {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .sub-title {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 400;
+            letter-spacing: 1px;
+            position: relative;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 25px;
+            color: rgba(255,255,255,0.9);
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .sub-title::before {
+            display: none;
+        }
+        
+        /* 放大字体样式 */
+        .large-text {
+            font-size: 1.3em;
+            line-height: 1.9;
+        }
+        
+        .extra-large-text {
+            font-size: 1.5em;
+            line-height: 2.0;
+        }
+        
+        .highlight-large {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.6em;
+            position: relative;
+            display: inline-block;
+            margin: 0 3px;
+        }
+        
+        .data-source {
+            text-align: right;
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+        
+        /* 动态数字动画样式 */
+        .animate-number {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .animate-number.animate {
+            animation: numberPulse 0.5s ease-in-out;
+        }
+        
+        @keyframes numberPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 50px;
+            font-size: 1.8em;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        
+        .container {
+            padding: 0 30px 50px;
+        }
+        
+        .stat-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-box::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            opacity: 0.1;
+            clip-path: polygon(0 0, 100% 100%, 100% 0);
+        }
+        
+        /* 数字动画高亮交互 */
+        .highlight {
+            font-weight: bold;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-size: 1.3em;
+            margin: 0 3px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .highlight::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--secondary);
+            opacity: 0.4;
+            z-index: -1;
+            transition: background 0.3s;
+        }
+        .highlight:hover {
+            color: var(--secondary);
+        }
+        .highlight:hover::after {
+            background: var(--primary);
+            opacity: 0.6;
+        }
+        /* 图片悬停放大和阴影 */
+        img:hover, .image-gallery img:hover, .category-image-container img:hover, .image-container img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 8px 24px rgba(139,0,0,0.18);
+            z-index: 2;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        /* 主要按钮和超链接悬停高亮 */
+        a:hover, .swiper-caption a:hover {
+            color: var(--primary);
+            background: var(--secondary);
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+        /* 主要内容区块淡入动画 */
+        .stat-box, .timeline, .image-placeholder, .category-image-container, .image-container {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInSection 1.2s ease-out forwards;
+        }
+        .stat-box { animation-delay: 0.1s; }
+        .timeline { animation-delay: 0.3s; }
+        .image-placeholder, .image-container { animation-delay: 0.5s; }
+        .category-image-container { animation-delay: 0.7s; }
+        @keyframes fadeInSection {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        /* 时间轴卡片点击高亮 */
+        .timeline-item.active {
+            background: #fbeee6;
+            box-shadow: 0 0 24px 0 rgba(212,175,55,0.18);
+            border-radius: 12px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 60px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover::after {
+            transform: scale(1.1);
+            background-color: var(--primary);
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            display: none;
+            border-top: 3px solid var(--secondary);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .timeline-content h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-content h3::before {
+            content: "";
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: var(--secondary);
+            margin-right: 10px;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        .timeline-header {
+            padding: 18px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(139, 0, 0, 0.25);
+        }
+        
+        .timeline-header::after {
+            content: "点击展开";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.8;
+            font-weight: normal;
+        }
+        
+        /* 轮播图样式 - 16:9比例 */
+        .swiper-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9比例 */
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .swiper-slide:hover .swiper-image {
+            transform: scale(1.05);
+        }
+
+        .swiper-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next, 
+        .swiper-button-prev {
+            color: var(--secondary);
+            background: rgba(255,255,255,0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover, 
+        .swiper-button-prev:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+
+        .swiper-button-next::after, 
+        .swiper-button-prev::after {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .swiper-pagination-bullet {
+            background: white;
+            opacity: 0.6;
+            width: 12px;
+            height: 12px;
+            margin: 0 8px !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--secondary);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        /* 阻止事件冒泡的类 */
+        .no-close {
+            pointer-events: auto;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 450px;
+            background-color: #eee;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-placeholder::before {
+            content: "文物视频";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+        }
+        
+        .video-placeholder::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid white;
+            margin-left: 5px;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            background-color: #eee;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .image-placeholder.double {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .image-placeholder.double > div {
+            width: 48%;
+            height: 300px;
+            background-color: #f5f5f5;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        /* 流失文物分类体系图片容器 - 调整尺寸 */
+        .category-image-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 新增样式：图片容器居中 */
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* 新增样式：页脚居中 */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+            
+            .swiper-container {
+                padding-bottom: 56.25%;
+            }
+            
+            .swiper-button-next, 
+            .swiper-button-prev {
+                width: 40px;
+                height: 40px;
+            }
+            
+            header {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                margin-bottom: 20px;
+            }
+            
+            .header-image {
+                margin-left: 0;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4/3;
+            }
+            
+            .image-placeholder.double > div {
+                width: 100%;
+            }
+            
+            /* 移动端调整分类图片宽度 */
+            .category-image-container {
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <header>
+            <div class="header-content">
+                <h1 class="main-title">数字为"舟"</h1>
+                <h2 class="sub-title">海外流失文物的云端回归</h2>
+                <p></p>
+            </div>
+            <div class="header-image">
+                <!-- 这里放置您的PNG抠像图片 -->
+                <img src="6.png" alt="文物图像">
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="stat-box">
+                <p class="large-text">据<strong>联合国教科文组织</strong>不完全统计，在全世界<strong class="highlight-large">47</strong>个国家、<strong class="highlight-large">218</strong>家博物馆中，中国文物数量达<strong class="highlight-large">167万</strong>件，而流散在<strong>海外民间</strong>的中国文物数量更是馆藏的<strong class="highlight-large">10倍</strong>之多。</p>
+                <p>数据来源：联合国教科文组织、央视新闻</p>
+            </div>
+            
+            <section>
+                <h2>历史脉络：文物迁徙之路</h2>
+                <p>探索中国文物流失海外的历史轨迹</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item left" onclick="toggleContent(this)">
+                        <div class="timeline-header">19世纪中叶至20世纪初（战争掠夺期）</div>
+                        <div class="timeline-content">
+                            <h3>战争与掠夺</h3>
+                            <p><strong>主要事件</strong>：鸦片战争、第二次鸦片战争（1860年英法联军劫掠圆明园）、八国联军侵华（1900年洗劫北京）</p>
+                            <p><strong>流失特点</strong>：系统性劫掠宫廷、皇家园林及寺庙文物，如圆明园青铜器、瓷器、《四库全书》摹版等</p>
+                            
+                            <!-- 轮播图部分 - 4张图片 -->
+                            <div class="swiper-container no-close">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img src="1.jpg" alt="圆明园流失青铜器" class="swiper-image">
+                                        <div class="swiper-caption">圆明园流失青铜器</div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="2.jpg" alt="圆明园流失瓷器" class="swiper-image">
+                                        <div class="swiper-caption">圆明园流失瓷器</div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="3.jpg" alt="圆明园流失书画" class="swiper-image">
+                                        <div class="swiper-caption">圆明园流失书画</div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img src="13.jpg" alt="流失文物示例" class="swiper-image">
+                                        <div class="swiper-caption">流失文物示例</div>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination no-close"></div>
+                                <div class="swiper-button-next no-close"></div>
+                                <div class="swiper-button-prev no-close"></div>
+                            </div>
+                            
+                            <p>图片来自：央视新闻 纪录片《国宝回家》</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right" onclick="toggleContent(this)">
+                        <div class="timeline-header">1920-1949年（混乱盗掘期）</div>
+                        <div class="timeline-content">
+                            <h3>动荡年代的流失</h3>
+                            <p><strong>主要事件</strong>：国民政府时期法律虚设，军阀混战、日军侵华加剧流失</p>
+                            <p><strong>流失途径</strong>：外国探险家低价收购或盗掘（如安阳殷墟甲骨被贩至日、美）；日军系统性劫掠明清以上文物运往日本，后部分转至美国</p>
+                            <p><a href="https://mp.weixin.qq.com/s/DDNON-cBc3tZeTsIQp8LTw" target="_blank" style="color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary);">了解更多：日本曾经抢走中国多少文物 →</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left" onclick="toggleContent(this)">
+                        <div class="timeline-header">改革开放前：20世纪50-70年代（政策松动期）</div>
+                        <div class="timeline-content">
+                            <h3>特殊时期的流失</h3>
+                            <p><strong>主要事件</strong>：文革动乱导致文物通过香港走私至国际市场</p>
+                            <p>国家文物商店出口政策允许部分清代文物外流（如嘉庆、道光官窑瓷器）</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right" onclick="toggleContent(this)">
+                        <div class="timeline-header">1980年至今（盗掘走私与回归期）</div>
+                        <div class="timeline-content">
+                            <h3>挑战与希望</h3>
+                            <p><strong>现状</strong>：有关部门不断完善相关法律、加强执法，但仍有部分珍贵文物通过盗掘走私被贩卖到海外</p>
+                            <video controls class="video-placeholder">
+                                <source src="5.mp4" type="video/mp4">
+                            </video>
+                            <p>视频来源：央视新闻</p>
+                            <blockquote>
+                                <p><strong>中国政法大学教授 霍政欣</strong>：</p>
+                                <p>总体来看，<strong>依据国际法和国内法依法展开追索，是目前最为有效、同时也是成本最小的一种追索方式，也是今后中国实现文物回家的最重要的一种方式。</strong></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2>全球分布：文物栖身之所</h2>
+                <div class="image-placeholder double">
+                    <div><img src="8.jpg" alt="世界热力图1" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div><img src="9.jpg" alt="世界热力图2" style="width:100%; height:100%; object-fit:cover;"></div>
+                </div>
+            </section>
+            
+            <section>
+                <h2>我国文物流失数量</h2>
+                <div class="image-container">
+                    <img src="7.jpg" alt="我国文物流失数量统计图表">
+                </div>
+                <p class="large-text">根据部分西方博物馆的公开数据，仅<strong class="highlight-large">英国大英博物馆</strong>（约<strong class="highlight-large">5万</strong>件）、<strong class="highlight-large">加拿大皇家安大略博物馆</strong>（约<strong class="highlight-large">4.3万</strong>件）、<strong class="highlight-large">美国大都会艺术博物馆</strong>（约<strong class="highlight-large">1.2万</strong>件）、<strong class="highlight-large">波士顿艺术博物馆</strong>（约<strong class="highlight-large">1万</strong>件）以及<strong class="highlight-large">法国吉美博物馆</strong>（约<strong class="highlight-large">2万</strong>件）五家机构所藏的中国文物总数就已多达<strong class="highlight-large">15万</strong>件。</p>
+                <p>数据来源：五大博物馆公布官方数据</p>
+            </section>
+            
+            <section>
+                <h2>流失文物分类体系</h2>
+                <div class="category-image-container">
+                    <img src="10.jpg" alt="流失文物分类体系图表">
+                </div>
+                <p>中国流失海外文物主要分为青铜器、陶瓷、书画、玉器等八大类别，其中以佛教造像和宫廷文物最具代表性。</p>
+            </section>
+            
+            <footer>
+                <p>©更新中</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- 添加Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // 数字动画
+        function animateNumbers() {
+            document.querySelectorAll('.highlight, .highlight-large').forEach(highlight => {
+                const text = highlight.textContent.replace(/,/g, '');
+                const target = parseFloat(text.replace(/[^\d.]/g, ''));
+                if (!isNaN(target) && target > 0) {
+                    let current = 0;
+                    const isInt = Number.isInteger(target);
+                    const increment = Math.ceil(target / 600); // 降低速度，增加动画时间
+                    const updateCount = () => {
+                        current += increment;
+                        if (current > target) current = target;
+                        highlight.textContent = isInt ? current.toLocaleString() : current.toFixed(1);
+                        if (current < target) {
+                            setTimeout(updateCount, 25); // 增加间隔时间，使动画更慢
+                        } else {
+                            // 动画完成时添加脉冲效果
+                            highlight.classList.add('animate');
+                            setTimeout(() => highlight.classList.remove('animate'), 500);
+                        }
+                    };
+                    updateCount();
+                }
+            });
+        }
+        // 时间轴卡片点击高亮
+        function toggleContent(element) {
+            const content = element.querySelector('.timeline-content');
+            const isActive = content.style.display === 'block';
+            document.querySelectorAll('.timeline-content').forEach(item => {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            if (!isActive) {
+                content.style.display = 'block';
+                element.classList.add('active');
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 主要区块淡入
+            document.querySelectorAll('.stat-box, .timeline, .image-placeholder, .category-image-container, .image-container').forEach((el, idx) => {
+                setTimeout(() => {
+                    el.style.opacity = 1;
+                    el.style.transform = 'none';
+                }, 200 + idx * 200);
+            });
+            // 数字动画
+            animateNumbers();
+            // 时间轴卡片悬停浮起
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            // 初始化Swiper轮播
+            const swiper = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                preventClicks: false,
+                preventClicksPropagation: false
+            });
+            // 阻止轮播组件的事件冒泡
+            const noCloseElements = document.querySelectorAll('.no-close');
+            noCloseElements.forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
