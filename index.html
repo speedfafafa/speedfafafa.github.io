@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字为“舟” · 主页面导航</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --primary:#8B0000; --primary-dark:#5a0000; --secondary:#d4af37;
+            --text:#332; --paper:rgba(255,255,255,.9);
+        }
+        *{box-sizing:border-box; margin:0; padding:0}
+        body{font-family:'Noto Serif SC',serif; color:var(--text); min-height:100vh; background:url('gpt.jpg') center/cover fixed no-repeat;}
+        .container{max-width:1200px; margin:0 auto; padding:24px 18px 48px;}
+
+        /* 固定导航栏：常在顶部 */
+        .navbar{position:fixed; top:0; left:0; right:0; z-index:1000; background:linear-gradient(135deg,var(--primary) 0%, var(--primary-dark) 100%); box-shadow:0 6px 18px rgba(0,0,0,.28);}
+        .nav-inner{max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 18px;}
+        .brand{color:#fff; text-decoration:none; font-weight:700; letter-spacing:1px; text-shadow:0 2px 6px rgba(0,0,0,.35)}
+        .nav-menu{display:flex; gap:10px; flex-wrap:wrap}
+        .nav-menu a{display:inline-block; padding:8px 14px; color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,.4); border-radius:24px; background:rgba(255,255,255,.06); transition:.25s}
+        .nav-menu a:hover{background:var(--secondary); color:var(--primary)}
+        /* 内容避让固定导航 */
+        .spacer{height:62px}
+
+        /* 英雄横幅 */
+        .hero-section{margin-top:60px; margin-bottom:40px}
+        .hero-image-container{background:transparent; text-align:center; padding:40px 20px}
+        .hero-images-grid{display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap; max-width:1200px; margin:0 auto}
+        .hero-image-item{width:400px; height:300px; object-fit:contain; filter:brightness(1) contrast(1); transition:transform 0.3s ease; background-color:transparent; display:flex; align-items:center; justify-content:center; overflow:hidden}
+        .hero-image-item:hover{transform:scale(1.05)}
+        
+        /* 简洁介绍卡片 */
+        .intro{margin-top:18px; background:var(--paper); border-radius:14px; box-shadow:0 8px 22px rgba(0,0,0,.16); text-align:center; padding:28px 20px}
+        .intro h1{font-size:28px; color:var(--primary); letter-spacing:1px}
+        .intro p{color:#555; margin-top:8px}
+
+        /* 模块卡片栅格 */
+        .modules{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px}
+        .module-card{background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,.12); border:1px solid rgba(0,0,0,.05); transition:transform .25s ease, box-shadow .25s ease}
+        .module-card:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,.18)}
+        .module-link{display:block; color:inherit; text-decoration:none}
+        .thumb{width:100%; aspect-ratio:4/3; background:#eee}
+        .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+        .info{padding:14px 14px 16px}
+        .tag{display:inline-block; font-size:12px; letter-spacing:2px; color:#775; margin-bottom:6px}
+        .title{font-weight:700; color:var(--primary)}
+        .desc{color:#666; font-size:14px; margin-top:4px}
+
+        @media (max-width:1000px){ 
+            .modules{grid-template-columns:repeat(2,1fr);} 
+            .hero-images-grid{gap:30px}
+            .hero-image-item{width:300px; height:225px}
+        }
+        @media (max-width:640px){ 
+            .modules{grid-template-columns:1fr;} 
+            .hero-images-grid{flex-direction:column; gap:20px}
+            .hero-image-item{width:250px; height:187px}
+        }
+
+        /* 内容展示区（iframe 保持导航常在） */
+        .viewer{margin-top:22px; background:var(--paper); border-radius:14px; box-shadow:0 10px 26px rgba(0,0,0,.18); overflow:hidden}
+        .toolbar{display:flex; justify-content:space-between; align-items:center; padding:12px 18px; background:var(--primary); color:#fff}
+        .toolbar .title{font-weight:700; font-size:16px}
+        .toolbar .actions{display:flex; gap:8px}
+        .close-btn{padding:6px 12px; background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.3); border-radius:6px; color:#fff; text-decoration:none; font-size:14px; transition:.25s}
+        .close-btn:hover{background:rgba(255,255,255,.3)}
+        .viewer .frame{width:100%; border:0; display:block; min-height:800px}
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="主导航">
+        <div class="nav-inner">
+            <a class="brand" href="#">主页面导航</a>
+            <div class="nav-menu">
+                <a href="#" onclick="openPage('1.html','板块一 · 数字为“舟”');return false;">板块一</a>
+                <a href="#" onclick="openPage('2.html','板块二 · 破局：数字为翼');return false;">板块二</a>
+                <a href="#" onclick="openPage('3.html','板块三 · 践行：万象归库');return false;">板块三</a>
+                <a href="#" onclick="openPage('4.html','板块四 · 共振：众志同归');return false;">板块四</a>
+                <a href="#" onclick="openPage('5.html','板块五 · 数字无界 文明有源');return false;">板块五</a>
+            </div>
+        </div>
+    </nav>
+    <div class="spacer" aria-hidden="true"></div>
+    <div class="container">
+
+        <!-- 主界面图片展示区域 -->
+        <section class="hero-section">
+            <div class="hero-image-container">
+                <div class="hero-images-grid">
+                    <img src="61.png" alt="文物图像1" class="hero-image-item">
+                    <img src="62.png" alt="文物图像2" class="hero-image-item">
+                    <img src="60.png" alt="文物图像3" class="hero-image-item">
+                </div>
+            </div>
+        </section>
+
+        <section class="viewer" id="viewer" style="display:none;">
+            <div class="toolbar">
+                <div class="title" id="viewerTitle">标题</div>
+                <div class="actions">
+                    <a href="#" class="close-btn" onclick="closeViewer();return false;">关闭</a>
+                </div>
+            </div>
+            <iframe class="frame" id="frame" src="about:blank" title="内容"></iframe>
+        </section>
+    </div>
+
+    <script>
+        function openPage(url, title){
+            console.log('Opening page:', url, title); // 调试信息
+            const v = document.getElementById('viewer');
+            const f = document.getElementById('frame');
+            const t = document.getElementById('viewerTitle');
+            const heroSection = document.querySelector('.hero-section');
+            
+            if (!v || !f || !t) {
+                console.error('Required elements not found');
+                return;
+            }
+            
+            // 隐藏40.jpg图片区域
+            if (heroSection) {
+                heroSection.style.display = 'none';
+            }
+            
+            t.textContent = title || '';
+            f.src = url;
+            v.style.display = 'block';
+            
+            // 滚至顶部，导航常在
+            window.scrollTo({top:0, behavior:'smooth'});
+            
+            // 添加iframe加载事件监听
+            f.onload = function() {
+                console.log('Page loaded successfully');
+            };
+            f.onerror = function() {
+                console.error('Failed to load page:', url);
+                alert('页面加载失败，请检查文件是否存在');
+            };
+        }
+        
+        function closeViewer(){
+            const v = document.getElementById('viewer');
+            const f = document.getElementById('frame');
+            if (f) f.src = 'about:blank';
+            if (v) v.style.display = 'none';
+            
+            // 确保主页面内容可见
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.display = 'block';
+            }
+            
+            // 滚动到顶部
+            window.scrollTo({top:0, behavior:'smooth'});
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, navigation ready');
+        });
+    </script>
+</body>
+</html>
