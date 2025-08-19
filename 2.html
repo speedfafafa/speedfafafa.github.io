@@ -963,13 +963,13 @@
             highlights.forEach(highlight => {
                 const target = parseInt(highlight.getAttribute('data-target').replace(/,/g, ''));
                 let current = 0;
-                const increment = Math.max(1, Math.ceil(target / 600)); // 降低速度
+                const increment = Math.max(1, Math.ceil(target / 200)); // 提升速度
                 const updateCount = () => {
                     current += increment;
                     if (current > target) current = target;
                     highlight.textContent = current.toLocaleString();
                     if (current < target) {
-                        setTimeout(()=>requestAnimationFrame(updateCount), 25); // 增加间隔时间
+                        setTimeout(()=>requestAnimationFrame(updateCount), 12); // 更快刷新
                     } else {
                         // 动画完成时添加脉冲效果
                         highlight.classList.add('animate');
