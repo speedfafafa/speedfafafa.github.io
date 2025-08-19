@@ -30,6 +30,9 @@
         .hero-images-grid{display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap; max-width:1200px; margin:0 auto}
         .hero-image-item{width:400px; height:300px; object-fit:contain; filter:brightness(1) contrast(1); transition:transform 0.3s ease; background-color:transparent; display:flex; align-items:center; justify-content:center; overflow:hidden}
         .hero-image-item:hover{transform:scale(1.05)}
+        /* 60.png 上侧标注样式 */
+        .hero-image-item.with-label{position:relative; overflow:visible}
+        .hero-image-badge{position:absolute; top:-22px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,.9); color:var(--primary); font-size:14px; padding:4px 8px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.12)}
         
         /* 简洁介绍卡片 */
         .intro{margin-top:18px; background:var(--paper); border-radius:14px; box-shadow:0 8px 22px rgba(0,0,0,.16); text-align:center; padding:28px 20px}
@@ -92,7 +95,10 @@
                 <div class="hero-images-grid">
                     <img src="61.png" alt="文物图像1" class="hero-image-item">
                     <img src="62.png" alt="文物图像2" class="hero-image-item">
-                    <img src="60.png" alt="文物图像3" class="hero-image-item">
+                    <a href="#" onclick="openPage('1.html','板块一 · 数字为“舟”');return false;" class="hero-image-item with-label" style="display:inline-block">
+                        <span class="hero-image-badge">(点击"归家"进入)</span>
+                        <img src="60.png" alt="文物图像3" class="hero-image-item" style="pointer-events:none">
+                    </a>
                 </div>
             </div>
         </section>
