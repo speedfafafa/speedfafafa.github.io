@@ -405,7 +405,7 @@
         </main>
 
         <footer class="text-center mt-12 py-6 border-t border-gray-300">
-            <p class="text-sm text-gray-500">&copy;中国数据新闻大赛</p>
+            <p class="text-sm text-gray-500">&copy; 中国数据新闻大赛</p>
         </footer>
 
     </div>
@@ -765,7 +765,8 @@
         function animate(el){
             const target = parseFloat(el.getAttribute('data-count'))||0;
             const suffix = el.getAttribute('data-suffix')||'';
-            const dur = 1600 + Math.min(target,2000);
+            // 加速数字动画：缩短总时长
+            const dur = 900 + Math.min(target,600);
             const start = performance.now();
             function frame(now){
                 const p = Math.min(1,(now-start)/dur);
